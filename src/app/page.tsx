@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="bg-white text-black selection:bg-black selection:text-white">
+    <main style={{ background: "var(--bg)", color: "var(--ink)" }}>
       <Navigation />
       <div className="pt-16">
         <Hero />

@@ -18,43 +18,61 @@ export default function Manifesto() {
   return (
     <section
       id="ai-lab"
-      className="dark-section bg-black text-white py-24 md:py-32 px-6 md:px-12"
+      className="dark-section py-28 md:py-36 px-6 md:px-12"
+      style={{ background: "var(--bg-dark)", color: "var(--bg)" }}
       ref={ref}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center">
         <div>
-          <motion.h2
-            className="text-3xl md:text-5xl lg:text-6xl font-black tracking-[-0.04em] uppercase italic leading-[0.9] mb-10 md:mb-12 text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease }}
+          {/* Label */}
+          <motion.p
+            className="text-[11px] font-semibold uppercase tracking-[0.2em] mb-8 opacity-40"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 0.4 } : {}}
+            transition={{ duration: 0.6 }}
           >
-            &ldquo;Technology is most powerful when it becomes invisible.&rdquo;
+            AI Lab · Philosophy
+          </motion.p>
+
+          <motion.h2
+            className="leading-[0.9] tracking-[-0.02em] mb-10 md:mb-12"
+            style={{
+              fontSize: "clamp(2.2rem, 4.5vw, 5rem)",
+              fontFamily: "'DM Serif Display', serif",
+            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease }}
+          >
+            &ldquo;Technology is most powerful when it becomes
+            <em> invisible.</em>&rdquo;
           </motion.h2>
 
           <motion.p
-            className="text-base md:text-lg font-light mb-10 md:mb-12 text-white/70 leading-relaxed"
+            className="text-[14px] font-light leading-[1.85] mb-12 md:mb-14 opacity-60"
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
+            animate={isInView ? { opacity: 0.6 } : {}}
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             Our flagship platform showcases the synergy between human intuition
-            and machine precision. Every interaction is calculated, every pixel is purposeful.
+            and machine precision. Every interaction is calculated, every pixel
+            is purposeful.
           </motion.p>
 
-          <ul className="space-y-5 md:space-y-6">
+          <ul className="space-y-0">
             {features.map((f, i) => (
               <motion.li
                 key={f.num}
                 initial={{ opacity: 0, x: -16 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.25 + i * 0.08, ease }}
-                className="group/feat flex items-center gap-6 border-b border-white/15 pb-4 hover:border-white/30 transition-colors duration-200"
+                className="group/feat flex items-center gap-6 py-5"
+                style={{ borderBottom: "0.5px solid rgba(242,240,235,0.12)" }}
               >
-                <span className="text-xs font-bold tracking-widest text-white/30 group-hover/feat:text-white/50 transition-colors duration-200">
+                <span className="text-[11px] font-semibold tracking-[0.15em] opacity-25 group-hover/feat:opacity-50 transition-opacity duration-200">
                   {f.num}
                 </span>
-                <span className="text-sm uppercase tracking-[-0.02em] font-bold text-white">
+                <span className="text-[13px] font-medium uppercase tracking-[0.06em]">
                   {f.label}
                 </span>
               </motion.li>
@@ -62,48 +80,49 @@ export default function Manifesto() {
           </ul>
         </div>
 
-        {/* Right: abstract visual */}
+        {/* Abstract geometric visual */}
         <motion.div
           className="relative flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.98 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.9, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="w-full aspect-square max-w-md relative">
-            <div className="absolute inset-0 border-[0.5px] border-white/15" />
-            <div className="absolute inset-[12%] border-[0.5px] border-white/10" />
-            <div className="absolute inset-[24%] border-[0.5px] border-white/8" />
+            {/* Nested squares */}
+            <div className="absolute inset-0 border-[0.5px]" style={{ borderColor: "rgba(242,240,235,0.1)" }} />
+            <div className="absolute inset-[10%] border-[0.5px]" style={{ borderColor: "rgba(242,240,235,0.08)" }} />
+            <div className="absolute inset-[20%] border-[0.5px]" style={{ borderColor: "rgba(242,240,235,0.06)" }} />
+            <div className="absolute inset-[30%] border-[0.5px]" style={{ borderColor: "rgba(242,240,235,0.05)" }} />
 
+            {/* Cross lines */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-[0.5px] h-full bg-white/8 absolute" />
-              <div className="h-[0.5px] w-full bg-white/8 absolute" />
+              <div className="w-[0.5px] h-full absolute" style={{ background: "rgba(242,240,235,0.06)" }} />
+              <div className="h-[0.5px] w-full absolute" style={{ background: "rgba(242,240,235,0.06)" }} />
             </div>
 
+            {/* Orbiting dot */}
             <motion.div
-              className="absolute w-2.5 h-2.5 bg-white rounded-full"
+              className="absolute w-2 h-2 rounded-full"
+              style={{ background: "var(--bg)", top: "50%", left: "50%", marginTop: -4, marginLeft: -4 }}
               animate={{
-                x: [0, 70, 70, 0, -70, -70, 0],
-                y: [0, 70, -70, 0, -70, 70, 0],
+                x: [0, 60, 60, 0, -60, -60, 0],
+                y: [0, 60, -60, 0, -60, 60, 0],
               }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              style={{ top: "50%", left: "50%", marginTop: -5, marginLeft: -5 }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             />
 
+            {/* Label */}
             <div className="absolute bottom-6 left-0 right-0 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/25">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.4em] opacity-20">
                 Neural mesh v2.4
               </p>
             </div>
 
-            {[
-              "top-0 left-0",
-              "top-0 right-0",
-              "bottom-0 left-0",
-              "bottom-0 right-0",
-            ].map((cls, i) => (
-              <div key={i} className={`absolute w-5 h-5 ${cls}`}>
-                <div className="w-full h-[0.5px] bg-white/30" />
-                <div className="w-[0.5px] h-full bg-white/30" />
+            {/* Corner markers */}
+            {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((cls, i) => (
+              <div key={i} className={`absolute w-4 h-4 ${cls}`}>
+                <div className="w-full h-[0.5px]" style={{ background: "rgba(242,240,235,0.25)" }} />
+                <div className="w-[0.5px] h-full" style={{ background: "rgba(242,240,235,0.25)" }} />
               </div>
             ))}
           </div>
