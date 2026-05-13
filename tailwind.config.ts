@@ -10,15 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#f2f0eb",
-        surface: "#f2f0eb",
-        "on-surface": "#0f0f0e",
-        primary: "#0f0f0e",
-        "on-primary": "#f2f0eb",
-        outline: "rgba(15,15,14,0.25)",
-        "outline-variant": "rgba(15,15,14,0.12)",
-        secondary: "#6b6b65",
-        faint: "#b8b5ae",
+        background: "#FFFFFF",
+        surface: "#FFFFFF",
+        "on-surface": "#000000",
+        primary: "#000000",
+        "on-primary": "#FFFFFF",
+        outline: "#000000",
+        "outline-variant": "#E5E5E5",
+        secondary: "#717171",
       },
       borderRadius: {
         DEFAULT: "0px",
@@ -29,9 +28,12 @@ const config: Config = {
         full: "9999px",
       },
       fontFamily: {
-        display: ["DM Serif Display", "Georgia", "serif"],
-        body: ["DM Sans", "system-ui", "sans-serif"],
-        headline: ["DM Serif Display", "Georgia", "serif"],
+        headline: ["Inter", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+        label: ["Inter", "sans-serif"],
+      },
+      letterSpacing: {
+        tightest: "-0.05em",
       },
     },
   },

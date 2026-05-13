@@ -1,29 +1,33 @@
 "use client";
 
-const items = [
-  "ORACLE.AI", "KINETIC", "MERIDIAN", "APEX", "VERTEX", "VOLTA", "QUANTUM", "NEXUS",
-  "ORACLE.AI", "KINETIC", "MERIDIAN", "APEX", "VERTEX", "VOLTA", "QUANTUM", "NEXUS",
+const clients = [
+  "VOLTA",
+  "QUANTUM",
+  "NEXUS",
+  "ORACLE.AI",
+  "KINETIC",
+  "MERIDIAN",
+  "APEX",
+  "VERTEX",
 ];
 
 export default function Ticker() {
+  // Duplicate for seamless loop
+  const items = [...clients, ...clients];
+
   return (
-    <div
-      className="overflow-hidden py-5"
-      style={{ borderTop: "0.5px solid var(--border)", borderBottom: "0.5px solid var(--border)" }}
-    >
+    <section className="border-y-[0.5px] border-black py-10 overflow-hidden">
       <div className="ticker-track">
-        {items.map((item, i) => (
-          <div key={i} className="flex items-center">
-            <span
-              className="text-[11px] font-semibold tracking-[0.25em] uppercase px-8 whitespace-nowrap"
-              style={{ color: "var(--ink-muted)" }}
-            >
-              {item}
-            </span>
-            <span style={{ color: "var(--ink-faint)", fontSize: "6px" }}>●</span>
-          </div>
+        {items.map((client, i) => (
+          <span
+            key={i}
+            className="text-[11px] font-black uppercase tracking-[0.4em] px-10 whitespace-nowrap text-black"
+          >
+            {client}
+            <span className="ml-10 mr-0 opacity-20">—</span>
+          </span>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

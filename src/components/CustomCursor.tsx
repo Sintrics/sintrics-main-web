@@ -1,57 +1,48 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const cursor = document.getElementById("custom-cursor");
+    const cursor = cursorRef.current;
     if (!cursor) return;
 
-    const move = (e: MouseEvent) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const onMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + "px";
+      cursor.style.top = mouseY + "px";
     };
 
-    const onEnter = () => cursor.classList.add("cursor-hover");
-    const onLeave = () => cursor.classList.remove("cursor-hover");
+    const onEnterInteractive = () => cursor.classList.add("cursor-hover");
+    const onLeaveInteractive = () => cursor.classList.remove("cursor-hover");
 
-    const targets = () =>
-      document.querySelectorAll("a, button, [role=button], input, textarea, select");
+    const onEnterDark = () => cursor.classList.add("cursor-inverted");
+    const onLeaveDark = () => cursor.classList.remove("cursor-inverted");
 
-    const attachListeners = () => {
-      targets().forEach((el) => {
-        el.addEventListener("mouseenter", onEnter);
-        el.addEventListener("mouseleave", onLeave);
-      });
-    };
+    window.addEventListener("mousemove", onMove);
 
-    // Dark sections invert cursor
-    const darkSections = () => document.querySelectorAll(".dark-section");
-    const checkDark = (e: MouseEvent) => {
-      let onDark = false;
-      darkSections().forEach((sec) => {
-        const r = sec.getBoundingClientRect();
-        if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-          onDark = true;
-        }
-      });
-      if (onDark) cursor.classList.add("cursor-inverted");
-      else cursor.classList.remove("cursor-inverted");
-    };
+    const interactives = document.querySelectorAll("a, button, [role='button'], input, textarea");
+    interactives.forEach((el) => {
+      el.addEventListener("mouseenter", onEnterInteractive);
+      el.addEventListener("mouseleave", onLeaveInteractive);
+    });
 
-    document.addEventListener("mousemove", move);
-    document.addEventListener("mousemove", checkDark);
-    attachListeners();
+    const darkSections = document.querySelectorAll(".dark-section");
+    darkSections.forEach((el) => {
+      el.addEventListener("mouseenter", onEnterDark);
+      el.addEventListener("mouseleave", onLeaveDark);
+    });
 
     return () => {
-      document.removeEventListener("mousemove", move);
-      document.removeEventListener("mousemove", checkDark);
-      targets().forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-      });
+      window.removeEventListener("mousemove", onMove);
     };
   }, []);
 
-  return <div id="custom-cursor" />;
+  return <div id="custom-cursor" ref={cursorRef} />;
 }
